@@ -1,6 +1,6 @@
 import { podcasts } from "./data.js";
 import { initModal } from "./pod-modal.js";
-import "./pod-tile.js"; // Registers Web Component
+import "./pod-tile.js";
 
 const openModal = initModal();
 

@@ -1,5 +1,4 @@
-import { genres } from "./data.js";
-import { seasons } from "./data.js";
+import { genres, seasons } from "./data.js";
 
 // modal.js
 export function initModal() {
@@ -12,12 +11,20 @@ export function initModal() {
   });
 
   return function openModal(podcast) {
-    document.getElementById("modal-image").src = podcast.image;
-    document.getElementById("modal-title").textContent = podcast.title;
-    document.getElementById("modal-description").textContent =
-      podcast.description;
+    const modalElements = {
+      image: document.getElementById("modal-image"),
+      title: document.getElementById("modal-title"),
+      description: document.getElementById("modal-description"),
+      genres: document.getElementById("modal-genres"),
+      updated: document.getElementById("modal-updated"),
+      seasons: document.getElementById("modal-seasons"),
+    };
 
-    document.getElementById("modal-genres").innerHTML = podcast.genres
+    modalElements.image.src = podcast.image;
+    modalElements.title.textContent = podcast.title;
+    modalElements.description.textContent = podcast.description;
+
+    modalElements.genres.innerHTML = podcast.genres
       .map(
         (id) =>
           `<span class="text-md font-bold text-gray-600 px-2 py-1 rounded">${
@@ -26,16 +33,14 @@ export function initModal() {
       )
       .join("");
 
-    const updatedDate = new Date(podcast.updated);
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    const formattedDate = updatedDate.toLocaleDateString("en-US", options);
+    const formattedDate = new Date(podcast.updated).toLocaleDateString(
+      "en-US",
+      { year: "numeric", month: "long", day: "numeric" }
+    );
 
-    document.getElementById(
-      "modal-updated"
-    ).textContent = `Last updated: ${formattedDate}`;
+    modalElements.updated.textContent = `Last updated: ${formattedDate}`;
 
-    const seasonsContainer = document.getElementById("modal-seasons");
-    seasonsContainer.innerHTML = "";
+    modalElements.updated.innerHTML = "";
 
     const podcastSeasons =
       seasons.find((s) => s.id === podcast.id)?.seasonDetails || [];
@@ -57,7 +62,7 @@ export function initModal() {
         ${season.episodes} episodes
         </p>`;
 
-      seasonsContainer.appendChild(seasonDiv);
+      modalElements.seasons.appendChild(seasonDiv);
     });
 
     modal.showModal();
