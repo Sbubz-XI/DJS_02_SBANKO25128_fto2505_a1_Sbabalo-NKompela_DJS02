@@ -17,13 +17,43 @@ export class PodcastTile extends HTMLElement {
           background: white;
           transition: transform 0.3s ease-in-out;
           cursor: pointer;
+          padding: 1rem;
+          height: 90%;
+          display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .tile:hover { transform: scale(1.05); }
-        img { width: 100%; height: 15rem; object-fit: cover; border-radius: 0.5rem; }
-        .content { padding: 0.75rem; }
-        .title { font-weight: 600; margin-bottom: 0.5rem; }
-        .genres { margin-top: 0.5rem; font-weight: bold; color: #374151; display: flex; flex-wrap: wrap; gap: 0.25rem; }
-        .updated { margin-top: 0.5rem; color: #6b7280; font-weight: 500; }
+        img { 
+            width: 100%; 
+            height: 15rem; 
+            object-fit: cover; 
+            border-radius: 0.5rem;  
+            display: block; 
+            margin: 0 auto; }
+        .content { 
+            padding-left: 1rem; 
+        }
+        .title { 
+            font-size: 1.1rem; 
+            font-weight: 800; 
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem; 
+        }
+        .genres { 
+            font-size: 0.9rem;
+            margin-top: 0.5rem; 
+            font-weight: 700; 
+            color: #374151; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 0.25rem; 
+        }
+        .updated { 
+            margin-top: 0.5rem; 
+            color: #6b7280; 
+            font-weight: 500; 
+        }
       </style>
       <div class="tile">
         <img src="${podcast.image}" alt="${podcast.title}">
