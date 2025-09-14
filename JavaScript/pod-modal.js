@@ -42,8 +42,14 @@ export function initModal() {
 
     modalElements.updated.innerHTML = "";
 
-    const podcastSeasons =
-      seasons.find((s) => s.id === podcast.id)?.seasonDetails || [];
+    function getSeasonsForPodcast(podcast, seasons) {
+      const match = seasons.find((s) => s.id === podcast.id);
+      return match ? match.seasonDetails : [];
+    }
+
+    const podcastSeasons = getSeasonsForPodcast(podcast, seasons);
+
+    modalElements.seasons.innerHTML = "";
 
     podcastSeasons.forEach((season) => {
       const seasonDiv = document.createElement("div");
@@ -57,10 +63,11 @@ export function initModal() {
       );
 
       seasonDiv.innerHTML = `
-        <h3 class="font-semibold">${season.title}</h3>
-        <p class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-700 font-medium">
-        ${season.episodes} episodes
-        </p>`;
+    <h3 class="font-semibold">${season.title}</h3>
+    <p class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-700 font-medium">
+      ${season.episodes} episodes
+    </p>
+  `;
 
       modalElements.seasons.appendChild(seasonDiv);
     });
