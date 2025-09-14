@@ -53,5 +53,4 @@ export class PodcastTile extends HTMLElement {
   }
 }
 
-// Define the custom element
 customElements.define("podcast-tile", PodcastTile);
