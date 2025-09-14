@@ -60,9 +60,7 @@ export class PodcastTile extends HTMLElement {
         <div class="content">
           <div class="title">${podcast.title}</div>
           <div class="genres">${this.getGenreTitles(podcast.genres)}</div>
-          <div class="updated">Updated ${this.daysAgo(
-            podcast.updated
-          )} days ago</div>
+          <div class="updated">Updated ${timeAgo(podcast.updated)}</div>
         </div>
       </div>
     `;
@@ -76,10 +74,27 @@ export class PodcastTile extends HTMLElement {
       })
       .join("");
   }
+}
 
-  daysAgo(dateStr) {
-    const diff = Date.now() - new Date(dateStr).getTime();
-    return Math.floor(diff / (1000 * 60 * 60 * 24));
+function timeAgo(dateStr) {
+  const date = new Date(dateStr);
+
+  if (isNaN(date.getTime())) {
+    console.warn("Invalid date:", dateStr);
+    return "Unknown date";
+  }
+
+  const now = Date.now();
+  let diffDays = Math.floor((now - date.getTime()) / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 30) {
+    return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
+  } else if (diffDays < 365) {
+    const months = Math.floor(diffDays / 30);
+    return `${months} month${months !== 1 ? "s" : ""} ago`;
+  } else {
+    const years = Math.floor(diffDays / 365);
+    return `${years} year${years !== 1 ? "s" : ""} ago`;
   }
 }
 
